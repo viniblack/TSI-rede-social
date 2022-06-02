@@ -15,7 +15,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>
 
-  <script defer src="./js/login.js"></script>
+  <script defer src="./js/register.js"></script>
 </head>
 
 <body>
@@ -35,20 +35,20 @@
           
           <div class="mb-6">
             <label for="inputEmail" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="email"  placeholder="Digite seu e-mail" maxlength="30" required>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail" maxlength="30" required>
             <div id="email" class="form-text">Digite o email que você mais utiliza</div>
           </div>
           <div class="col-md-12">
             <label for="inputPhone" class="form-label">Telefone</label>
-            <input type="text" class="form-control" id="inputPhone" placeholder="dd xxxxx xxxx" pattern="[0-9]{2} ?[0-9]{4,5}?-?[0-9]{4}">
+            <input type="text" class="form-control" id="inputPhone" placeholder="ddxxxxxxxxx" pattern="[0-9]{2} ?[0-9]{4,5}?-?[0-9]{4}">
           </div>
           <div class="col-md-6">
             <label for="inputPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="inputPassword" required>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" required>
           </div>
           <div class="col-md-6">
             <label for="inputConfirmPassword" class="form-label">Confirmar a senha</label>
-            <input type="password" class="form-control" id="inputConfirmPassword" required>
+            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirme sua senha" required>
           </div>
           <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>

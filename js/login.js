@@ -1,5 +1,5 @@
-function login() {
-
+let login = (event) => {
+  event.preventDefault();
   //pega os elementos do formLogin
   let inputEmail = document.querySelector("#inputEmail");
   let inputPassword = document.querySelector("#inputPassword");
@@ -8,32 +8,30 @@ function login() {
   let user = [];
 
   let loginValid = {
-    fullName: '',
-    mail: '',
+    name: '',
+    email: '',
     password: ''
   }
 
-  user = JSON.parse(localStorage.getItem('listaUser'));
+  user = JSON.parse(localStorage.getItem('user'));
 
   user.forEach((item) => {
-    if (inputEmail.value == item.mailCad && inputPassword.value == item.passwordCad) {
+    if (inputEmail.value == item.email && inputPassword.value == item.password) {
 
       loginValid = {
-        fullName: item.fullNameCad,
-        mail: item.mailCad,
-        password: item.passwordCad
+        fullName: item.name,
+        email: item.email,
+        password: item.password
       }
     }
   });
-  if (inputEmail.value == loginValid.mail && inputPassword.value == loginValid.password) {
+  if (inputEmail.value == loginValid.email && inputPassword.value == loginValid.password) {
 
     //direciona para a tela principal index
-    const newLocal = window.location.href = "index.html";
-
     localStorage.setItem('userLogado', JSON.stringify(loginValid));
-
+    window.location.href = "index.html";
   } else {
-    msgError.setAttribute('style', 'display: block')
+    msgError.classList.add("text-danger")
     msgError.innerHTML = 'E-mail ou senha incorretos'
   }
 }

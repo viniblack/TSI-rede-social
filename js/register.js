@@ -17,5 +17,5 @@ let submitForm = () => {
   })
 
   localStorage.setItem(`user`, JSON.stringify(user))
-
+  window.location.href = "login.html";
 }
