@@ -11,9 +11,6 @@ body {
 }
 
 .postNovo {
-    width: 100vw;
-    height: 42vh;
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -52,7 +49,6 @@ body {
     font-size: 16px;
     margin-left: 10px;
     font-weight: bold;
-    color: #e5d9f0;
 }
 
 .postNovo form {
@@ -113,7 +109,7 @@ input[type='file'] {
 .postNovo form .btnSubmit {
     font-size: 0.9rem;
     border: none;
-    background: #9a9a9a;
+
     color: #fff;
     padding: 0.6rem;
     border-radius: 5px;
@@ -123,7 +119,7 @@ input[type='file'] {
 
 .postNovo form .btnSubmit:hover {
     width: 12%;
-    background: #828181;
+
     letter-spacing: 0.5px;
     font-size: 0.93rem;
 }

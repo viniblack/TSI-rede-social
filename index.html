@@ -39,13 +39,13 @@
     <main class="main">
       <div class="postNovo">
         <div class="postHeader">
-          <div class="imgUser"><img src="../assets/img/avatar.svg"> </div>
+          <div class="imgUser"></div>
           <div class="nameUser" id="nameUser"> Gustavo </div>
         </div>
-        <form action="#" class="formulario" id="formulario">
+        <form action="#" class="formulario mt-3" id="formulario">
           <textarea name="textarea" id="textarea" placeholder="Escreva uma legenda..."></textarea>
 
-          <div class="buttons">
+          <div class="buttons mt-3">
             <div class="icons">
               <input type="file" id="fileImage" name="fileImage" accept="image/*">
               <img src="./src/image.svg" alt="adicionar uma imagem" id="imagemInput">
@@ -59,36 +59,42 @@
               <img src="./src/drawing.svg" alt="adicionar um desenho">
 
             </div>
-            <input class="btnSubmit" type="submit" value="Publicar">
+            <input class="btnSubmit btn-dark" type="submit" value="Publicar">
           </div>
         </form>
       </div>
-      <section>
+      <section class="section-posts">
         <div class="posts" id="posts"> </div>
         <img src="" alt="Campo de imagem" id="postImagem">
       </section>
     </main>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <span class="text-muted">Desenvolvido por viniblack</span>
+
+    <footer class="position-relative">
+      <div class="position-absolute  w-100 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <span class="text-muted">Desenvolvido por viniblack</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3">
+            <a target="_blank" class="text-muted" href="https://github.com/viniblack">
+              <img src="./src/github.svg" alt="">
+            </a>
+          </li>
+          <li class="ms-3">
+            <a target="_blank" class="text-muted" href="https://www.linkedin.com/in/viniblack/">
+              <img src="./src/linkedin.svg" alt="">
+            </a>
+          </li>
+          <li class="ms-3">
+            <a target="_blank" class="text-muted" href="https://twitter.com/BlackVinii">
+              <img src="./src/twitter.svg" alt="">
+            </a>
+          </li>
+        </ul>
       </div>
-
-      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
-              <use xlink:href="#twitter"></use>
-            </svg></a></li>
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
-              <use xlink:href="#instagram"></use>
-            </svg></a></li>
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
-              <use xlink:href="#facebook"></use>
-            </svg></a></li>
-      </ul>
     </footer>
-
   </div>
-
-
 </body>
 
 </html>
