@@ -16,6 +16,8 @@
   </script>
 
   <link rel="stylesheet" href="index.css">
+  <script defer src="./js/utilities.js"></script>
+  <script defer src="./js/post.js"></script>
 </head>
 
 <body>
@@ -40,37 +42,54 @@
       <div class="postNovo">
         <div class="postHeader">
           <div class="imgUser"></div>
-          <div class="nameUser" id="nameUser"> Gustavo </div>
+          <div class="nameUser" id="postName"> Gustavo </div>
         </div>
-        <form action="#" class="formulario mt-3" id="formulario">
+        <form action="#" class="formulario mt-3" id="formPost">
           <textarea name="textarea" id="textarea" placeholder="Escreva uma legenda..."></textarea>
+          
+          <div class="border rounded align-self-center updateMidia p-2 mt-3">
+
+            <img id="uploadImage" src="" alt="">
+            <video id="uploadVideo" src=""></video>
+            <audio id="uploadAudio" src=""></audio>
+          </div>
 
           <div class="buttons mt-3">
             <div class="icons">
-              <input type="file" id="fileImage" name="fileImage" accept="image/*">
-              <img src="./src/image.svg" alt="adicionar uma imagem" id="imagemInput">
 
-              <input type="file" id="fileVideo" name="fileVideo" accept="video/*">
-              <img src="./src/video.svg" alt="adicionar um video" id="videoInput">
+              <img src="./src/image.svg" alt="adicionar uma imagem" id="imgPhoto">
+              <input type="file" id="flImage" name="fImage" accept="image/*">
 
-              <input type="file" id="fileAudio" name="fileAudio" accept="audio/*">
-              <img src="./src/audio.svg" alt="adicionar um audio" id="audioInput">
+              <img src="./src/video.svg" alt="adicionar um video" id="myVideo">
+              <input type="file" id="flVideo" name="fVideo" accept="video/*">
 
-              <img src="./src/drawing.svg" alt="adicionar um desenho">
+              <img src="./src/audio.svg" alt="adicionar um audio" id="myAudio">
+              <input type="file" id="flAudio" name="fAudio" accept="audio/*">
 
+              <!-- <img src="./src/drawing.svg" alt="adicionar um desenho" title="desenho" id="myDraw" style="width:30px;"
+                onclick="mostraDraw()">
+              <input type="button" id="FlDraw" name="fDraw" style="width:30px;"> -->
             </div>
-            <input class="btnSubmit btn-dark" type="submit" value="Publicar">
+            <button class="btnSubmit btn-dark" id="botao" type="submit" onclick="getLocation()">Publicar</button>
           </div>
         </form>
       </div>
+
+
+
       <section class="section-posts">
-        <div class="posts" id="posts"> </div>
-        <img src="" alt="Campo de imagem" id="postImagem">
+        <div class="posts" id="posts">
+          
+        </div>
       </section>
     </main>
 
+
+
+
     <footer class="position-relative">
-      <div class="position-absolute  w-100 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
+      <div
+        class="position-absolute  w-100 d-flex flex-wrap justify-content-around align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
           <span class="text-muted">Desenvolvido por viniblack</span>
         </div>

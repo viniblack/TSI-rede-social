@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,400&display=swap');
 
+
+
+
+.updateMidia {
+    width: 25vw
+}
+
+.updateMidia * {
+    width: 100%;
+}
+
+
 body {
     background-color: #f6f6f6;
     -webkit-font-smoot: antialiased !important;

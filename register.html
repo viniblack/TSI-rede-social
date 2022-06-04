@@ -15,7 +15,8 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>
 
-
+  <script defer src="./js/register.js"></script>
+  <script defer src="./js/utilities.js"></script>
 </head>
 
 <body>
@@ -25,22 +26,26 @@
         <form class="row g-3" onsubmit="submitForm(event)">
           <div class="col-md-12">
             <label for="inputName" class="form-label">Nome:</label>
-            <input type="text" class="form-control" id="inputName" maxlength="35" minlength="3" placeholder="Digite seu nome" required>
+            <input type="text" class="form-control" id="inputName" maxlength="35" minlength="3"
+              placeholder="Digite seu nome" required>
           </div>
 
           <div class="mb-6">
             <label for="inputCPF" class="form-label">CPF:</label>
-            <input type="number" class="form-control" id="inputCPF" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})" placeholder="Digite seu CPF" required>
+            <input type="number" class="form-control" id="inputCPF" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})"
+              placeholder="Digite seu CPF" required>
           </div>
-          
+
           <div class="mb-6">
             <label for="inputEmail" class="form-label">E-mail:</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail" maxlength="30" required>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Digite seu e-mail" maxlength="30"
+              required>
             <div id="email" class="form-text">Digite o email que você mais utiliza</div>
           </div>
           <div class="col-md-12">
             <label for="inputPhone" class="form-label">Telefone:</label>
-            <input type="text" class="form-control" id="inputPhone" placeholder="ddxxxxxxxxx" pattern="[0-9]{2} ?[0-9]{4,5}?-?[0-9]{4}">
+            <input type="text" class="form-control" id="inputPhone" placeholder="ddxxxxxxxxx"
+              pattern="[0-9]{2} ?[0-9]{4,5}?-?[0-9]{4}">
           </div>
           <div class="col-md-6">
             <label for="inputPassword" id="labelPassword" class="form-label">Senha:</label>
@@ -48,14 +53,15 @@
           </div>
           <div class="col-md-6">
             <label for="inputConfirmPassword" id="labelConfirmPassword" class="form-label">Confirmar senha:</label>
-            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirme sua senha" required>
+            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirme sua senha"
+              required>
           </div>
           <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
       </div>
     </div>
   </div>
-  <script defer src="./js/register.js"></script>
+
 </body>
 
 </html>
