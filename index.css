@@ -13,7 +13,7 @@
 
 
 body {
-    background-color: #f6f6f6;
+    background-color: #F8F9FA;
     -webkit-font-smoot: antialiased !important;
 }
 
@@ -127,13 +127,6 @@ input[type='file'] {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s ease-in;
-}
-
-.postNovo form .btnSubmit:hover {
-    width: 12%;
-
-    letter-spacing: 0.5px;
-    font-size: 0.93rem;
 }
 
 .posts .post {

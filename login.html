@@ -21,30 +21,31 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row d-flex align-items-center vh-100">
-      <div class="col-12">
-        <div id="msgError"></div>
-        <form class="row g-3">
-          <div class="mb-12">
-            <label for="inputEmail" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="email"
-              placeholder="Digite seu e-mail" maxlength="30" required>
-          </div>
-
-          <div class="col-md-12">
-            <label for="inputPassword" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" required>
-            <div id="email" class="form-text">Ainda não tem cadastro?
-              <a class="ms-2" href="./register.html">
-                Criar nova conta
-              </a>
+  <div class="container-fluid d-flex justify-content-center">
+      <div class="row w-md-25 d-flex align-items-center justify-content-center vh-100">
+        <div class="col-12 col-md-6">
+          <div id="msgError"></div>
+          <form class="row g-3">
+            <div class="mb-12">
+              <label for="inputEmail" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="inputEmail" aria-describedby="email"
+                placeholder="Digite seu e-mail" maxlength="30" required>
             </div>
-          </div>
+            <div class="col-md-12">
+              <label for="inputPassword" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" required>
+              <div id="email" class="form-text w-100 d-flex justify-content-between">
+                Ainda não tem cadastro?
+                <a class="ms-2 text-decoration-none " href="./register.html">
+                  Criar nova conta
+                </a>
+              </div>
+            </div>
 
-          <button type="submit" onclick="login(event)" class="btn btn-primary">Entrar</button>
-        </form>
-      </div>
+            <button type="submit" onclick="login(event)" class="btn btn-dark">Entrar</button>
+          </form>
+        </div>
+    
     </div>
   </div>
 </body>

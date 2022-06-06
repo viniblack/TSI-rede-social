@@ -27,10 +27,15 @@
         <div class="container-fluid mx-2 d-lg-flex justify-content-lg-around">
           <h1 class="navbar-brand h1">Rede do mal</h1>
           <div>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row align-items-center">
               <li class="nav-item">
                 <span class="me-4" id="logado"></span>
-                <button class="btn btn-dark" onclick="sair()">Sair</button>
+              </li>
+              <li class="nav-item">
+                <button id="logout" class="btn btn-dark" onclick="sair()">Sair</button>
+                <a id="login" class="btn btn-dark" href="./login.html">
+                  Entrar
+                </a>
               </li>
             </ul>
           </div>
@@ -46,7 +51,7 @@
         </div>
         <form action="#" class="formulario mt-3" id="formPost">
           <textarea name="textarea" id="textarea" placeholder="Escreva uma legenda..."></textarea>
-          
+
           <div class="border rounded align-self-center updateMidia p-2 mt-3">
 
             <img id="uploadImage" src="" alt="">
@@ -70,16 +75,16 @@
                 onclick="mostraDraw()">
               <input type="button" id="FlDraw" name="fDraw" style="width:30px;"> -->
             </div>
-            <button class="btnSubmit btn-dark" id="botao" type="submit" onclick="getLocation()">Publicar</button>
+            <button class="btnSubmit btn-dark" type="submit" onclick="enviar()">Publicar</button>
           </div>
         </form>
       </div>
       <section class="section-posts">
         <div class="posts" id="posts">
-          
+
         </div>
         <div class="posts" id="postsLocal">
-          
+
         </div>
       </section>
     </main>
