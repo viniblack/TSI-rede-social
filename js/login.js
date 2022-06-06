@@ -24,7 +24,6 @@ let login = (event) => {
         password: item.password
       }
     }
-
   });
 
   if (inputEmail.value == loginValid.email && inputPassword.value == loginValid.password) {

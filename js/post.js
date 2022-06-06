@@ -42,12 +42,15 @@ class FormPost {
       newPost.classList.add('post');
 
       //mostra um elemento Html
+
+      // <details>
+      // <summary><b><img src="assets/map.png" style="width:40px; margin-bottom: 10px; margin-right: 5px; ">Sua Localização</b></summary>
+      //     <p><b>Latitude: <span id="latitude"></span>
+      //           Longitude: <span id="longitude"></span></b></p>
+      // </details>
+      let textarea = this.textarea.value
       newPost.innerHTML = `
-              <details>
-         <summary><b><img src="assets/map.png" style="width:40px; margin-bottom: 10px; margin-right: 5px; ">Sua Localização</b></summary>
-             <p><b>Latitude: <span id="latitude"></span>
-                   Longitude: <span id="longitude"></span></b></p>
-         </details>
+         
          <div class="infoUserPost">
              <div class="imgUserPost"></div>
              <div class="nameAndHour">
@@ -55,11 +58,10 @@ class FormPost {
                  <p>
                      ${time}
                  </p>
-                 
               </div>
          </div>
          <p>
-         ${this.textarea.value}
+         ${textarea}
          
          </p>`;
 
@@ -73,13 +75,13 @@ class FormPost {
       if (this.postAudio.mostrar)
         newPost.innerHTML += `<audio src="${this.postAudio.src}" controls style="width:30%; margin-bottom: 20px;"></audio>`;
 
-      newPost.innerHTML += `<div class="actionBtnPost">
-         <button type="button" class="filePost " style="background-color: lightcoral;"><img src="./assets/curtir.png" alt="Curtir"><b class="text-white">Curtir</b></button>
-         <button type="button" class="filePost mx-5" style="background-color:lightseagreen"><img src="./assets/comentar.png" alt="Comentar"><b class="text-white">Comentar</b></button>
-         <button type="button" class="filePost " style="background-color: deepskyblue;"><img src="./assets/compartilhar.png" alt="compartilhar"><b class="text-white">Compartilhar</b></button>
-         
-         </div>
-         `;
+      // newPost.innerHTML += `<div class="actionBtnPost">
+      //    <button type="button" class="filePost " style="background-color: lightcoral;"><img src="./assets/curtir.png" alt="Curtir"><b class="text-white">Curtir</b></button>
+      //    <button type="button" class="filePost mx-5" style="background-color:lightseagreen"><img src="./assets/comentar.png" alt="Comentar"><b class="text-white">Comentar</b></button>
+      //    <button type="button" class="filePost " style="background-color: deepskyblue;"><img src="./assets/compartilhar.png" alt="compartilhar"><b class="text-white">Compartilhar</b></button>
+
+      //    </div>
+      //    `;
 
       this.ulPost.append(newPost);
       this.textarea.value = '';
@@ -90,6 +92,15 @@ class FormPost {
       this.postAudio.src = null;
       this.postAudio.mostrar = false;
 
+
+
+      post.push({
+        user: userLogado.fullName,
+        contentText: textarea,
+        date: new Date().toLocaleString(),
+        imagem: base64
+      })
+      localStorage.setItem("posts", JSON.stringify(post));
     }
 
     this.onSubmit(handleSubmit)
@@ -110,10 +121,12 @@ flAudio.mostrar = false;
 //função upload da imagem
 flImage.addEventListener("change", function () {
   const reader = new FileReader();
+
   reader.addEventListener("load", () => {
     const uploaded_image = reader.result;
     document.querySelector("#uploadImage").mostrar = true;
     document.querySelector("#uploadImage").src = uploaded_image;
+    base64 = reader.result;
   });
   reader.readAsDataURL(this.files[0]);
 });
@@ -122,10 +135,12 @@ flImage.addEventListener("change", function () {
 
 flVideo.addEventListener("change", function () {
   const reader = new FileReader();
+
   reader.addEventListener("load", () => {
     const uploaded_video = reader.result;
     document.querySelector("#uploadVideo").mostrar = true;
     document.querySelector("#uploadVideo").src = uploaded_video;
+
   });
   reader.readAsDataURL(this.files[0]);
 });
@@ -134,17 +149,20 @@ flVideo.addEventListener("change", function () {
 
 flAudio.addEventListener("change", function () {
   const reader = new FileReader();
+
   reader.addEventListener("load", () => {
     const uploaded_audio = reader.result;
     document.querySelector("#uploadAudio").mostrar = true;
     document.querySelector("#uploadAudio").src = uploaded_audio;
+
   });
   reader.readAsDataURL(this.files[0]);
 });
 
 
 let userLogado = JSON.parse(localStorage.getItem('userLogado'))
-
+let base64
+let post = JSON.parse(localStorage.getItem('posts') || '[]');
 let logado = document.querySelector('#logado')
 
 let postName = document.querySelector('#postName')
@@ -189,16 +207,38 @@ function getLocation() {
   }
 }
 
-function locationSucess(data) {
-  let latitude = data.coords.latitude;
-  let longitude = data.coords.longitude;
 
-  document.getElementById("latitude").innerHTML = latitude;
-  document.getElementById("longitude").innerHTML = longitude;
+post.slice().reverse().forEach((test) => {
+    document.getElementById('postsLocal').innerHTML +=
+    `
+    <div class="post">
+      <div class="infoUserPost">
+          <div class="imgUserPost"></div>
+          <div class="nameAndHour">
+              <strong>${test.user}</strong>
+              <p>
+                  ${test.date}
+              </p>
+          </div>
+      </div>
+      <p>
+      ${test.contentText}
+      </p>
+  
+      <img src="${test.imagem}" style="width:30%; margin-bottom: 20px;">
+      </div
+    `
+})
 
-  console.log(latitude, longitude);
-}
+// function locationSucess(data) {
+//   let latitude = data.coords.latitude;
+//   let longitude = data.coords.longitude;
 
-function locationError(data) {
+//   document.getElementById("latitude").innerHTML = latitude;
+//   document.getElementById("longitude").innerHTML = longitude;
 
-}
+// }
+
+// function locationError(data) {
+
+// }
