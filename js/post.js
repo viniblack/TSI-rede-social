@@ -53,8 +53,6 @@ class FormPost {
       const newPost = document.createElement('div');
       newPost.classList.add('post');
 
-      //mostra um elemento Html
-
       // <details>
       // <summary><b><img src="assets/map.png" style="width:40px; margin-bottom: 10px; margin-right: 5px; ">Sua Localização</b></summary>
       //     <p><b>Latitude: <span id="latitude"></span>
@@ -63,7 +61,6 @@ class FormPost {
       let textarea = this.textarea.value
       newPost.innerHTML = `
           <div class="infoUserPost">
-            <div class="imgUserPost"></div>
             <div class="nameAndHour">
               <strong>${userLogado.fullName}</strong>
               <p>
@@ -85,6 +82,49 @@ class FormPost {
       if (this.postAudio.mostrar)
         newPost.innerHTML += `<audio src="${this.postAudio.src}" controls style="width:30%; margin-bottom: 20px;"></audio>`;
 
+      if (base64 != undefined) {
+        switch (base64.substr(0, 11) || '') {
+          case 'data:image/':
+            post.push({
+              user: userLogado.fullName,
+              contentText: textarea,
+              date: new Date().toLocaleString(),
+              midia: base64
+            })
+            break;
+          case 'data:audio/':
+            post.push({
+              user: userLogado.fullName,
+              contentText: textarea,
+              date: new Date().toLocaleString(),
+              midia: base64
+            })
+            break;
+          case 'data:video/':
+            post.push({
+              user: userLogado.fullName,
+              contentText: textarea,
+              date: new Date().toLocaleString(),
+              midia: base64
+            })
+            break;
+          default:
+            post.push({
+              user: userLogado.fullName,
+              contentText: textarea,
+              date: new Date().toLocaleString(),
+            })
+        }
+      } else {
+        post.push({
+          user: userLogado.fullName,
+          contentText: textarea,
+          date: new Date().toLocaleString(),
+        })
+      }
+
+      localStorage.setItem("posts", JSON.stringify(post));
+
       this.ulPost.append(newPost);
       this.postImage.mostrar = false;
       this.postVideo.mostrar = false;
@@ -94,13 +134,6 @@ class FormPost {
       this.postAudio.src = null;
       this.textarea.value = '';
 
-      post.push({
-        user: userLogado.fullName,
-        contentText: textarea,
-        date: new Date().toLocaleString(),
-        imagem: base64
-      })
-      localStorage.setItem("posts", JSON.stringify(post));
     }
     this.onSubmit(handleSubmit)
   }
@@ -114,26 +147,43 @@ if (userLogado) {
   postName.innerHTML = `${userLogado.fullName}`
 }
 
-post.slice().reverse().forEach((test) => {
-  document.getElementById('postsLocal').innerHTML +=
+post.slice().reverse().forEach((post) => {
+  let posts =
     `
-    <div class="post">
-      <div class="infoUserPost">
-          <div class="imgUserPost"></div>
-          <div class="nameAndHour">
-              <strong>${test.user}</strong>
-              <p>
-                  ${test.date}
-              </p>
+      <div class="post">
+        <div class="infoUserPost">
+            <div class="nameAndHour">
+                <strong>${post.user}</strong>
+                <p>
+                    ${post.date}
+                </p>
+            </div>
+        </div>
+          <p>
+            ${post.contentText}
+          </p>
+    `
+  if (post.midia != undefined) {
+
+    if (post.midia.indexOf('data:image') != -1) {
+      posts += `
+            <img src="${post.midia}" style="width:30%; margin-bottom: 20px;">
+          `
+    } else if (post.midia.indexOf('data:video') != -1) {
+      posts += `
+            <video src="${post.midia}" style="width:30%; margin-bottom: 20px;">
+          `
+    } else if (post.midia.indexOf('data:audio') != -1) {
+      posts += `
+            <audio controls src="${post.midia}" style="width:30%; margin-bottom: 20px;">
+          `
+    }
+    posts += `
+            </div>
           </div>
-      </div>
-      <p>
-      ${test.contentText}
-      </p>
-  
-      <img src="${test.imagem}" style="width:30%; margin-bottom: 20px;">
-      </div
-    `
+        `
+  }
+  document.getElementById('postsLocal').innerHTML += posts
 })
 
 //função upload da imagem
@@ -157,7 +207,7 @@ flVideo.addEventListener("change", function () {
     const uploaded_video = reader.result;
     document.querySelector("#uploadVideo").mostrar = true;
     document.querySelector("#uploadVideo").src = uploaded_video;
-
+    base64 = reader.result;
   });
   reader.readAsDataURL(this.files[0]);
 });
@@ -170,7 +220,7 @@ flAudio.addEventListener("change", function () {
     const uploaded_audio = reader.result;
     document.querySelector("#uploadAudio").mostrar = true;
     document.querySelector("#uploadAudio").src = uploaded_audio;
-
+    base64 = reader.result;
   });
   reader.readAsDataURL(this.files[0]);
 });
@@ -191,15 +241,38 @@ myAudio.addEventListener('click', () => {
 
 function enviar() {
   if (userLogado) {
-    if ("geolocation" in navigator) {
-      //watchPosition
-      navigator.geolocation.watchPosition(locationSucess, locationError)
-    }
-    else {
-      alert("Não existe API de Geolocalização");
+    if (navigator.geolocation) {
+      // watchPosition
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("Não foi possível pegar sua localização");
     }
   } else {
     alert("Você não está logado")
+  }
+
+
+  function showPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    console.log(`lat: ${lat} lon: ${lon}`);
+  }
+
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("Solicitação de geolocalização negada.")
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("As informações de localização não estão disponíveis.")
+        break;
+      case error.TIMEOUT:
+        alert("A solicitação para obter a localização do usuário expirou.")
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("Ocorreu um erro desconhecido.")
+        break;
+    }
   }
 }
 
