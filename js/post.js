@@ -30,7 +30,6 @@ class FormPost {
     this.addSubmit();
   }
 
-
   onSubmit(func) {
     this.form.addEventListener('submit', func)
   }
@@ -45,29 +44,72 @@ class FormPost {
     return `${date}/${month}/${year} | ${hour}h${minutes}min`
   }
 
+
+  async geolocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert("Não foi possível pegar sua localização");
+    }
+
+    async function showPosition(position) {
+      let lat =  position.coords.latitude;
+      let lon =  position.coords.longitude;
+
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=`
+      const response = await fetch(url);
+      const data = await response.json();
+      let cidade =  data.results[0].address_components[3].long_name;
+      let uf =  data.results[0].address_components[4].short_name;
+      return `${ cidade} - ${ uf}`
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("Solicitação de geolocalização negada.")
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("As informações de localização não estão disponíveis.")
+          break;
+        case error.TIMEOUT:
+          alert("A solicitação para obter a localização do usuário expirou.")
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("Ocorreu um erro desconhecido.")
+          break;
+      }
+    }
+
+    return showPosition
+  }
+
+  local = this.geolocation();
+
   addSubmit() {
+    console.log(this.local);
 
     const handleSubmit = (event) => {
       event.preventDefault();
       const time = this.getTime();
-      const newPost = document.createElement('div');
+
+      console.log(local);
+      const newPost = document.createElement('article');
       newPost.classList.add('post');
 
-      // <details>
-      // <summary><b><img src="assets/map.png" style="width:40px; margin-bottom: 10px; margin-right: 5px; ">Sua Localização</b></summary>
-      //     <p><b>Latitude: <span id="latitude"></span>
-      //           Longitude: <span id="longitude"></span></b></p>
-      // </details>
       let textarea = this.textarea.value
       newPost.innerHTML = `
           <div class="infoUserPost">
             <div class="nameAndHour">
               <strong>${userLogado.fullName}</strong>
               <p>
-                ${time}
+                <time>${time}</time>
+                <br>
+                <span>${this.local}</span>
               </p>
             </div>
           </div>
+
           <p>
             ${textarea}
           </p>
@@ -150,12 +192,14 @@ if (userLogado) {
 post.slice().reverse().forEach((post) => {
   let posts =
     `
-      <div class="post">
+      <article class="post">
         <div class="infoUserPost">
             <div class="nameAndHour">
                 <strong>${post.user}</strong>
                 <p>
-                    ${post.date}
+                <time>${post.date}<time>
+                <br>
+                <span id="local"></span>
                 </p>
             </div>
         </div>
@@ -237,56 +281,46 @@ myAudio.addEventListener('click', () => {
   flAudio.click();
 });
 
-//geolocalização do usuário
 
 function enviar() {
-  if (userLogado) {
-    if (navigator.geolocation) {
-      // watchPosition
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-      alert("Não foi possível pegar sua localização");
-    }
-  } else {
-    alert("Você não está logado")
-  }
+  // if (userLogado) {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(showPosition, showError);
+  //   } else {
+  //     alert("Não foi possível pegar sua localização");
+  //   }
+  // } else {
+  //   alert("Você não está logado")
+  // }
 
 
-  function showPosition(position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    console.log(`lat: ${lat} lon: ${lon}`);
-  }
+  // async function showPosition(position) {
+  //   let lat = position.coords.latitude;
+  //   let lon = position.coords.longitude;
 
-  function showError(error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        alert("Solicitação de geolocalização negada.")
-        break;
-      case error.POSITION_UNAVAILABLE:
-        alert("As informações de localização não estão disponíveis.")
-        break;
-      case error.TIMEOUT:
-        alert("A solicitação para obter a localização do usuário expirou.")
-        break;
-      case error.UNKNOWN_ERROR:
-        alert("Ocorreu um erro desconhecido.")
-        break;
-    }
-  }
+  //   let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=`
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   let cidade = data.results[0].address_components[3].long_name;
+  //   let uf = data.results[0].address_components[4].short_name;
+  //   document.getElementById('local').innerHTML += `${cidade} - ${uf}`;
+  // }
+
+
+  // function showError(error) {
+  //   switch (error.code) {
+  //     case error.PERMISSION_DENIED:
+  //       alert("Solicitação de geolocalização negada.")
+  //       break;
+  //     case error.POSITION_UNAVAILABLE:
+  //       alert("As informações de localização não estão disponíveis.")
+  //       break;
+  //     case error.TIMEOUT:
+  //       alert("A solicitação para obter a localização do usuário expirou.")
+  //       break;
+  //     case error.UNKNOWN_ERROR:
+  //       alert("Ocorreu um erro desconhecido.")
+  //       break;
+  //   }
+  // }
 }
-
-
-
-// function locationSucess(data) {
-//   let latitude = data.coords.latitude;
-//   let longitude = data.coords.longitude;
-
-//   document.getElementById("latitude").innerHTML = latitude;
-//   document.getElementById("longitude").innerHTML = longitude;
-
-// }
-
-// function locationError(data) {
-
-// }
